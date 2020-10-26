@@ -8,6 +8,7 @@ import plane.PassengerPlane;
 import plane.Plane;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Airport {
     private List<? extends Plane> listOfAllPlanes;
@@ -19,29 +20,12 @@ public class Airport {
 
     public List<PassengerPlane> getPassengerPlanesList()
     {
-        List<? extends Plane> listOfAllPlanes = this.listOfAllPlanes;
-        List<PassengerPlane> passengerPlanes = new ArrayList<>();
-        for (Plane plane : listOfAllPlanes)
-        {
-            if (plane instanceof PassengerPlane)
-            {
-                passengerPlanes.add((PassengerPlane) plane);
-            }
-        }
-        return passengerPlanes;
+        return listOfAllPlanes.stream().filter(p -> p instanceof PassengerPlane).map(p -> (PassengerPlane)p).collect(Collectors.toList());
     }
 
     public List<MilitaryPlane> getMilitaryPlanes()
     {
-        List<MilitaryPlane> militaryPlanesList = new ArrayList<>();
-        for (Plane plane : listOfAllPlanes)
-        {
-            if (plane instanceof MilitaryPlane)
-            {
-                militaryPlanesList.add((MilitaryPlane) plane);
-            }
-        }
-        return militaryPlanesList;
+        return listOfAllPlanes.stream().filter(p -> p instanceof MilitaryPlane).map(p -> (MilitaryPlane)p).collect(Collectors.toList());
     }
 
     public PassengerPlane getPassengerPlaneWithMaximumPassengersCapacity()
@@ -58,39 +42,19 @@ public class Airport {
 
     public List<MilitaryPlane> getTransportMilitaryPlanes()
     {
-        List<MilitaryPlane> transportMilitaryPlanesList = new ArrayList<>();
-        List<MilitaryPlane> militaryPlaneList = getMilitaryPlanes();
-        for (MilitaryPlane plane : militaryPlaneList) {
-            if (plane.getMilitaryType() == MilitaryType.TRANSPORT) {
-                transportMilitaryPlanesList.add(plane);
-            }
-        }
-        return transportMilitaryPlanesList;
+        return listOfAllPlanes.stream().filter(p -> p instanceof MilitaryPlane).map(p -> (MilitaryPlane)p)
+                .filter(p -> p.getMilitaryType() == MilitaryType.TRANSPORT).collect(Collectors.toList());
     }
 
     public List<MilitaryPlane> getBomberMilitaryPlanes()
     {
-        List<MilitaryPlane> bomberMilitaryPlanesList = new ArrayList<>();
-        List<MilitaryPlane> militaryPlaneList = getMilitaryPlanes();
-        for (MilitaryPlane plane : militaryPlaneList) {
-            if (plane.getMilitaryType() == MilitaryType.BOMBER) {
-                bomberMilitaryPlanesList.add(plane);
-            }
-        }
-        return bomberMilitaryPlanesList;
+        return listOfAllPlanes.stream().filter(p -> p instanceof MilitaryPlane).map(p -> (MilitaryPlane)p)
+                .filter(p->p.getMilitaryType() == MilitaryType.BOMBER).collect(Collectors.toList());
     }
 
     public List<ExperimentalPlane> getExperimentalPlanes()
     {
-        List<ExperimentalPlane> experimentalPlanesList = new ArrayList<>();
-        for (Plane plane : listOfAllPlanes)
-        {
-            if (plane instanceof ExperimentalPlane)
-            {
-                experimentalPlanesList.add((ExperimentalPlane) plane);
-            }
-        }
-        return experimentalPlanesList;
+        return listOfAllPlanes.stream().filter(p -> p instanceof ExperimentalPlane).map(p -> (ExperimentalPlane)p).collect(Collectors.toList());
     }
 
     public List<? extends Plane> getListOfAllPlanes()
@@ -117,9 +81,7 @@ public class Airport {
     }
 
     private void print(Collection<? extends Plane> collection) {
-        for (Plane plane : collection) {
-            System.out.println(plane);
-        }
+        listOfAllPlanes.forEach(p -> System.out.println(p.toString()));
     }
 
     @Override
