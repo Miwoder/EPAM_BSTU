@@ -25,25 +25,27 @@ public class Airport {
 
     public List<MilitaryPlane> getMilitaryPlanes()
     {
-        return listOfAllPlanes.stream().filter(p -> p instanceof MilitaryPlane).map(p -> (MilitaryPlane)p).collect(Collectors.toList());
+        return listOfAllPlanes.stream()
+                .filter(p -> p instanceof MilitaryPlane)
+                .map(p -> (MilitaryPlane)p)
+                .collect(Collectors.toList());
     }
 
-    public PassengerPlane getPassengerPlaneWithMaximumPassengersCapacity()
+    public Optional<PassengerPlane> getPassengerPlaneWithMaximumPassengersCapacity()
     {
-        List<PassengerPlane> passengerPlanesList = getPassengerPlanesList();
-        PassengerPlane planeWithMaxCapacity = passengerPlanesList.get(0);
-        for (PassengerPlane passengerPlane : passengerPlanesList) {
-            if (passengerPlane.getPassengersCapacity() > planeWithMaxCapacity.getPassengersCapacity()) {
-                planeWithMaxCapacity = passengerPlane;
-            }
-        }
-        return planeWithMaxCapacity;
+        return listOfAllPlanes.stream()
+                .filter(p -> p instanceof PassengerPlane)
+                .map(p -> (PassengerPlane)p)
+                .max(Comparator.comparingInt(PassengerPlane::getPassengersCapacity));
     }
 
     public List<MilitaryPlane> getTransportMilitaryPlanes()
     {
-        return listOfAllPlanes.stream().filter(p -> p instanceof MilitaryPlane).map(p -> (MilitaryPlane)p)
-                .filter(p -> p.getMilitaryType() == MilitaryType.TRANSPORT).collect(Collectors.toList());
+        return listOfAllPlanes.stream()
+                .filter(p -> p instanceof MilitaryPlane)
+                .map(p -> (MilitaryPlane)p)
+                .filter(p -> p.getMilitaryType() == MilitaryType.TRANSPORT)
+                .collect(Collectors.toList());
     }
 
     public List<MilitaryPlane> getBomberMilitaryPlanes()
@@ -54,7 +56,8 @@ public class Airport {
 
     public List<ExperimentalPlane> getExperimentalPlanes()
     {
-        return listOfAllPlanes.stream().filter(p -> p instanceof ExperimentalPlane).map(p -> (ExperimentalPlane)p).collect(Collectors.toList());
+        return listOfAllPlanes.stream().filter(p -> p instanceof ExperimentalPlane).map(p -> (ExperimentalPlane)p)
+                .collect(Collectors.toList());
     }
 
     public List<? extends Plane> getListOfAllPlanes()

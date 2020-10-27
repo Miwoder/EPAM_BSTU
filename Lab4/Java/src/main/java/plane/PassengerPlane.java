@@ -38,4 +38,5 @@ public class PassengerPlane extends Plane{
     {
         return Objects.hash(super.hashCode(), passengersCapacity);
     }
+
 }

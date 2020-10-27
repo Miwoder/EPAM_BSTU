@@ -34,13 +34,13 @@ public class AirportTest {
     private static PassengerPlane planeWithMaxPassengerCapacity = new PassengerPlane("Boeing-747", 980, 16100, 70500, 242);
 
     @Test
-    public void GetTransportMilitaryPlanesTest() {
+    public void getTransportMilitaryPlanesTest() {
         Airport airport = new Airport(planes);
         Assert.assertTrue(airport.getTransportMilitaryPlanes().size() > 0);
     }
 
     @Test
-    public void GetPassengerPlaneWithMaxCapacityTest() {
+    public void getPassengerPlaneWithMaxCapacityTest() {
         Airport airport = new Airport(planes);
         Assert.assertTrue(airport.getPassengerPlaneWithMaximumPassengersCapacity().equals(planeWithMaxPassengerCapacity));
     }
