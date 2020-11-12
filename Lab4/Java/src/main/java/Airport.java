@@ -50,13 +50,16 @@ public class Airport {
 
     public List<MilitaryPlane> getBomberMilitaryPlanes()
     {
-        return listOfAllPlanes.stream().filter(p -> p instanceof MilitaryPlane).map(p -> (MilitaryPlane)p)
-                .filter(p->p.getMilitaryType() == MilitaryType.BOMBER).collect(Collectors.toList());
+        return listOfAllPlanes.stream().filter(p -> p instanceof MilitaryPlane)
+                .map(p -> (MilitaryPlane)p)
+                .filter(p->p.getMilitaryType() == MilitaryType.BOMBER)
+                .collect(Collectors.toList());
     }
 
     public List<ExperimentalPlane> getExperimentalPlanes()
     {
-        return listOfAllPlanes.stream().filter(p -> p instanceof ExperimentalPlane).map(p -> (ExperimentalPlane)p)
+        return listOfAllPlanes.stream().filter(p -> p instanceof ExperimentalPlane)
+                .map(p -> (ExperimentalPlane)p)
                 .collect(Collectors.toList());
     }
 
