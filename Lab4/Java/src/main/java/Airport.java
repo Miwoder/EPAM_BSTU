@@ -31,12 +31,29 @@ public class Airport {
                 .collect(Collectors.toList());
     }
 
-    public Optional<PassengerPlane> getPassengerPlaneWithMaximumPassengersCapacity()
+    public Optional<PassengerPlane> getPassengerPlaneWithMaxPassengersCapacity()
     {
         return listOfAllPlanes.stream()
                 .filter(p -> p instanceof PassengerPlane)
                 .map(p -> (PassengerPlane)p)
                 .max(Comparator.comparingInt(PassengerPlane::getPassengersCapacity));
+    }
+
+    public PassengerPlane getListPassengerPlaneWithMaxPassengersCapacity() {
+        List<PassengerPlane> passengerPlanes = getPassengerPlanes();
+        PassengerPlane planeWithMaxCapacity = passengerPlanes.get(0);
+        for (PassengerPlane passengerPlane : passengerPlanes) {
+            if (passengerPlane.getPassengersCapacity() > planeWithMaxCapacity.getPassengersCapacity()) {
+                planeWithMaxCapacity = passengerPlane;
+            }
+        }
+        return planeWithMaxCapacity;
+    }
+
+    private List<PassengerPlane> getPassengerPlanes() {
+        return listOfAllPlanes.stream().filter(p -> p instanceof PassengerPlane)
+                .map(p -> (PassengerPlane)p)
+                .collect(Collectors.toList());
     }
 
     public List<MilitaryPlane> getTransportMilitaryPlanes()
