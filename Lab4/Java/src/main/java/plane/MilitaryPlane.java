@@ -37,7 +37,4 @@ public class MilitaryPlane extends Plane{
                 ", type=" + militaryType +
                         '}');
     }
-
-
-
 }

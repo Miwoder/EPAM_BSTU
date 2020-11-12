@@ -94,7 +94,4 @@ public class Airport {
                 "Planes=" + listOfAllPlanes.toString() +
                 '}';
     }
-
-
-
 }
