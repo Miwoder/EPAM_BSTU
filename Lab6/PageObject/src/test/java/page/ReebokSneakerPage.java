@@ -12,7 +12,7 @@ public class ReebokSneakerPage {
     private final By goToWishListLocator = By.xpath("//a[@data-auto-id=\"cart-wishlist-icon-header\"]");
     private final By addToCartLocator = By.xpath("//button[@data-auto-id=\"add-to-bag\"]");
     private final By addSizeLocator = By.xpath("//button[@data-di-id=\"di-id-e8fd413a-43bcf44b\"]");
-    private final By goToCartLocator = By.xpath("//a[@data-di-id=\"di-id-c981eed9-91374266\"]");
+    private final By goToCartLocator = By.xpath("//button[@data-auto-id=\"view-bag-desktop\"]");
 
     private WebDriver driver;
 
