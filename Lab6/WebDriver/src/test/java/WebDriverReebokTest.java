@@ -9,9 +9,11 @@ import page.ReebokSneakerPage;
 public class WebDriverReebokTest {
     private WebDriver driver;
     private final String expectedWishListResult =  "Кроссовки Reebok Classic Leather";
+    private final String expectedCartResult =  "КРОССОВКИ REEBOK CLASSIC LEATHER";
 
     @BeforeMethod(alwaysRun = true)
     public void driverSetup(){
+        System.setProperty("webdriver.chrome.driver","C:\\TAT_EPAM_LABS\\ChromeDriver\\chromedriver.exe");
         driver = new ChromeDriver();
     }
 
@@ -22,6 +24,15 @@ public class WebDriverReebokTest {
                 .openWishListPage()
                 .getWishListResult();
         Assert.assertEquals(wishListResult, expectedWishListResult);
+    }
+
+    @Test
+    public void addToCartTest() {
+        String cartResult = new ReebokSneakerPage(driver)
+                .addItemToCart()
+                .openCartListPage()
+                .getCartResult();
+        Assert.assertEquals(cartResult, expectedCartResult);
     }
 
     @AfterMethod(alwaysRun = true)

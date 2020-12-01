@@ -16,9 +16,9 @@ public class ReebokWishListPage {
     }
 
     public String getWishListResult(){
-        WebElement closeDialogBnt = new WebDriverWait(driver, 10)
+        WebElement closeDialogButton = new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.presenceOfElementLocated(closeDialogLocator));
-        closeDialogBnt.click();
+        closeDialogButton.click();
         WebElement wishListResult = new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.presenceOfElementLocated(wishListResultLocator));
         return wishListResult.getText();
