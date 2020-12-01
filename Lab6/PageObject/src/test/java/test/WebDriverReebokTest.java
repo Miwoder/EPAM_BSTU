@@ -10,8 +10,8 @@ import page.ReebokSneakerPage;
 
 public class WebDriverReebokTest {
     private WebDriver driver;
-    private final String expectedWishListResult =  "Кроссовки Reebok Classic Leather";
-    private final String expectedCartResult =  "КРОССОВКИ REEBOK CLASSIC LEATHER";
+    private final String expectedWishListResult = "Zig Kinetica Shoes";
+    private final String expectedCartResult =  "ZIG KINETICA SHOES";
 
     @BeforeMethod(alwaysRun = true)
     public void driverSetup(){

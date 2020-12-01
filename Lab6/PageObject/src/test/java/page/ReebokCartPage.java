@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ReebokCartPage {
     private WebDriver driver;
-    private final By cartResultLocator = By.xpath("/html/body/div[2]/div/div/div/div/div[2]/div/main/div[2]/div/div/div/div/div/div[2]/div[1]/div[1]/div/div[1]/div/a/span");
+    private final By cartResultLocator = By.xpath("//span[@data-auto-id=\"glass-cart-line-item-name\"]");
 
     public ReebokCartPage(WebDriver driver){
         this.driver = driver;

@@ -7,12 +7,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ReebokSneakerPage {
-    private static final String SNEAKER_URL = "https://www.reebok.ru/krossovki-reebok-classic-leather/FZ1188.html?forceSelSize=FZ1188_570";
-    private final By addToWishListLocator = By.xpath("/html/body/div[2]/div/div/div/div/div[2]/div[2]/div[2]/section/div[3]/div/div");
-    private final By goToWishListLocator = By.xpath("/html/body/div[2]/div/div/div/div/div[1]/div/div[3]/div/div[2]/div[3]");
-    private final By addToCartLocator = By.xpath("/html/body/div[2]/div/div/div/div/div[2]/div[2]/div[2]/section/div[3]/button");
-    private final By addSizeLocator = By.xpath("/html/body/div[2]/div/div/div/div/div[2]/div[2]/div[2]/section/div[1]/div[2]/button[1]");
-    private final By goToCartLocator = By.xpath("/html/body/div[3]/div/div/div/div[2]/div/section/div[3]/button/span");
+    private static final String SNEAKER_URL = "https://www.reebok.com/us/zig-kinetica-shoes/FW5289.html";
+    private final By addToWishListLocator = By.xpath("//div[@data-auto-id=\"wishlist-button\"]");
+    private final By goToWishListLocator = By.xpath("//a[@data-auto-id=\"cart-wishlist-icon-header\"]");
+    private final By addToCartLocator = By.xpath("//button[@data-auto-id=\"add-to-bag\"]");
+    private final By addSizeLocator = By.xpath("//button[@data-di-id=\"di-id-e8fd413a-43bcf44b\"]");
+    private final By goToCartLocator = By.xpath("//a[@data-di-id=\"di-id-c981eed9-91374266\"]");
 
     private WebDriver driver;
 
@@ -37,6 +37,9 @@ public class ReebokSneakerPage {
 
     public ReebokSneakerPage addItemToCart(){
         driver.get(SNEAKER_URL);
+        WebElement addSizeButton = new WebDriverWait(driver,10)
+                .until(ExpectedConditions.presenceOfElementLocated(addSizeLocator));
+        addSizeButton.click();
         WebElement addToCartButton = new WebDriverWait(driver,10)
                 .until(ExpectedConditions.presenceOfElementLocated(addToCartLocator));
         addToCartButton.click();
