@@ -15,6 +15,7 @@ public class WebDriverReebokTest {
 
     @BeforeMethod(alwaysRun = true)
     public void driverSetup(){
+        System.setProperty("webdriver.chrome.driver","C:\\TAT_EPAM_LABS\\ChromeDriver\\chromedriver.exe");
         driver = new ChromeDriver();
     }
 
