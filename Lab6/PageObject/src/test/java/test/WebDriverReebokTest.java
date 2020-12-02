@@ -28,8 +28,13 @@ public class WebDriverReebokTest {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void driverSetup() {
+    public void driverSetup() throws IOException {
         System.setProperty("webdriver.chrome.driver","C:\\TAT_EPAM_LABS\\ChromeDriver\\chromedriver.exe");
+        service = new ChromeDriverService.Builder()
+                .usingDriverExecutable(new File("C:\\TAT_EPAM_LABS\\ChromeDriver\\chromedriver.exe"))
+                .usingAnyFreePort()
+                .build();
+        service.start();
         driver = new ChromeDriver();
         driver.manage()
                 .timeouts()
@@ -58,10 +63,6 @@ public class WebDriverReebokTest {
     public void driverShutDown(){
         driver.quit();
         driver=null;
-    }
-
-    @AfterClass
-    public static void stopService() {
         service.stop();
     }
 }
