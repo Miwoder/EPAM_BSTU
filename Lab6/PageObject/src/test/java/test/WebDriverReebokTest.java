@@ -3,14 +3,14 @@ package test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import page.ReebokSneakerPage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class WebDriverReebokTest {
     private WebDriver driver;
@@ -18,15 +18,21 @@ public class WebDriverReebokTest {
     private final String expectedWishListResult = "Zig Kinetica Shoes";
     private final String expectedCartResult =  "ZIG KINETICA SHOES";
 
-    @BeforeMethod(alwaysRun = true)
-    public void driverSetup() throws IOException {
-        System.setProperty("webdriver.chrome.driver","C:\\TAT_EPAM_LABS\\ChromeDriver\\chromedriver.exe");
+    @BeforeClass
+    public static void createAndStartService() throws IOException {
         service = new ChromeDriverService.Builder()
                 .usingDriverExecutable(new File("C:\\TAT_EPAM_LABS\\ChromeDriver\\chromedriver.exe"))
                 .usingAnyFreePort()
                 .build();
         service.start();
+    }
+    @BeforeMethod(alwaysRun = true)
+    public void driverSetup() {
+        System.setProperty("webdriver.chrome.driver","C:\\TAT_EPAM_LABS\\ChromeDriver\\chromedriver.exe");
         driver = new ChromeDriver();
+                driver.manage()
+                        .timeouts()
+                        .implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @Test
@@ -53,4 +59,8 @@ public class WebDriverReebokTest {
         driver=null;
     }
 
+    @AfterClass
+    public static void stopService() {
+        service.stop();
+    }
 }
