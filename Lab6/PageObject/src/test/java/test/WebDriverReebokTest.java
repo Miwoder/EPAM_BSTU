@@ -26,13 +26,14 @@ public class WebDriverReebokTest {
                 .build();
         service.start();
     }
+
     @BeforeMethod(alwaysRun = true)
     public void driverSetup() {
         System.setProperty("webdriver.chrome.driver","C:\\TAT_EPAM_LABS\\ChromeDriver\\chromedriver.exe");
         driver = new ChromeDriver();
-                driver.manage()
-                        .timeouts()
-                        .implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage()
+                .timeouts()
+                .implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @Test
