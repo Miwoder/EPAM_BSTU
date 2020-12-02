@@ -63,6 +63,5 @@ public class WebDriverReebokTest {
     public void driverShutDown(){
         driver.quit();
         driver=null;
-        service.stop();
     }
 }
