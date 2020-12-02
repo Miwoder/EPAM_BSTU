@@ -17,20 +17,8 @@ public class ExperimentalPlane extends Plane{
         this.classificationLevel = classificationLevel;
     }
 
-    public ExperimentalType getExperimentalType() {
-        return experimentalType;
-    }
-
     public ClassificationLevel getClassificationLevel(){
         return classificationLevel;
-    }
-
-    public void setClassificationLevel(ClassificationLevel classificationLevel){
-        this.classificationLevel = classificationLevel;
-    }
-
-    public void setExperimentalType(ExperimentalType experimentalType) {
-        this.experimentalType = experimentalType;
     }
 
     @Override

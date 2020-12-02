@@ -103,10 +103,6 @@ public class Airport {
         return this;
     }
 
-    private void print(Collection<? extends Plane> collection) {
-        listOfAllPlanes.forEach(p -> System.out.println(p.toString()));
-    }
-
     @Override
     public String toString()
     {
