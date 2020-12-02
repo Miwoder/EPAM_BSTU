@@ -15,10 +15,21 @@ public abstract class Plane {
         this.maximumLoadCapacity = maximumPlaneLoadCapacity;
     }
 
+    public String getPlaneModel() {
+        return planeModel;
+    }
+
     public int getMaximumPlaneSpeed() {
         return maximumSpeed;
     }
 
+    public int getMaximumSpeed() {
+        return maximumSpeed;
+    }
+
+    public int getMaximumFlightDistance() {
+        return maximumFlightDistance;
+    }
 
     public int getPlaneMaximumFlightDistance() {
         return maximumFlightDistance;

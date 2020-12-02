@@ -18,15 +18,6 @@ public class WebDriverReebokTest {
     private final String expectedWishListResult = "Zig Kinetica Shoes";
     private final String expectedCartResult =  "ZIG KINETICA SHOES";
 
-    @BeforeClass
-    public static void createAndStartService() throws IOException {
-        service = new ChromeDriverService.Builder()
-                .usingDriverExecutable(new File("C:\\TAT_EPAM_LABS\\ChromeDriver\\chromedriver.exe"))
-                .usingAnyFreePort()
-                .build();
-        service.start();
-    }
-
     @BeforeMethod(alwaysRun = true)
     public void driverSetup() throws IOException {
         System.setProperty("webdriver.chrome.driver","C:\\TAT_EPAM_LABS\\ChromeDriver\\chromedriver.exe");
@@ -36,9 +27,6 @@ public class WebDriverReebokTest {
                 .build();
         service.start();
         driver = new ChromeDriver();
-        driver.manage()
-                .timeouts()
-                .implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @Test
