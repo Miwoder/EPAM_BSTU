@@ -104,7 +104,9 @@ public class ReebokBagPage extends AbstractPage {
     }
 
     public ReebokBagPage closeAddButton(){
-        waitUntilElementIsClickable(closeAddButton).click();
+        waitUntilElementIsClickable(closeAddButton);
+        if(closeAddButton.isDisplayed())
+            closeAddButton.click();
         return this;
     }
 
