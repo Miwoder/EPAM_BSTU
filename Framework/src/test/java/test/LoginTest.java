@@ -9,7 +9,7 @@ import service.UserCreator;
 
 public class LoginTest extends TestBase {
 
-    //@Test
+    @Test
     public void loginTest() {
         User testUser= UserCreator.withCredentialsFromProperty();
         AccountPage accountPage = new LoginPage()

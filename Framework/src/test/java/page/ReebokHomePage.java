@@ -7,29 +7,38 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class ReebokHomePage extends AbstractPage {
-        private static final String HOMEPAGE_URL = "https://www.reebok.com/us";
+    private static final String HOMEPAGE_URL = "https://www.reebok.com/us";
 
-        @FindBy(xpath = "//div[@class=\"search-icon___1MZ8G\"]")
-        private WebElement searchButton;
+    @FindBy(xpath = "//input[@aria-labelledby=\"undefined_label\"]")
+    private WebElement emailField;
 
-        @FindBy(xpath = "//input[@data-auto-id=\"searchinput\"]")
-        private WebElement searchField;
+    @FindBy(xpath = "//button[@aria-label=\"Submit\"]")
+    private WebElement submitEmailButton;
 
-        public ReebokHomePage(){
-            super(DriverSingleton.getInstance());
-        }
+    @FindBy(xpath = "//div[@class=\"gl-form-hint gl-form-hint--error\"]")
+    private WebElement errorEmailMessage;
 
-        @Override
-        public ReebokHomePage openPage(){
-            driver.navigate().to(HOMEPAGE_URL);
-            waitUntilAjaxCompleted();
-            return this;
-        }
+    public ReebokHomePage inputEmail(String email){
+        emailField.sendKeys(email);
+        return this;
+    }
 
-        public ReebokSearchResult search(String request){
-            waitUntilElementIsClickableAndClickAvoidModalWindow(searchButton);
-            waitUntilVisibilityOf(searchField).sendKeys(request);
-            searchField.sendKeys(Keys.ENTER);
-            return new ReebokSearchResult();
-        }
+    public ReebokHomePage clickSubmitEmailButton(){
+        submitEmailButton.click();
+        return this;
+    }
+
+    public boolean isErrorEmail(){
+        return errorEmailMessage.isDisplayed();
+    }
+
+    public ReebokHomePage(){
+        super(DriverSingleton.getInstance());
+    }
+
+    @Override
+    public ReebokHomePage openPage(){
+        driver.get(HOMEPAGE_URL);
+        return this;
+    }
 }
