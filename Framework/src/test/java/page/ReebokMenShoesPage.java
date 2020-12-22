@@ -33,7 +33,6 @@ public class ReebokMenShoesPage extends AbstractPage{
     }
 
     public List<Integer> getItemsPriceList(){
-        waitUntilAjaxCompleted();
         List<Integer> priceList = Resolver.getIntegerPriceList(new WebDriverWait(driver,20)
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(ITEMS_PRICE_LOCATOR)));
         return priceList;

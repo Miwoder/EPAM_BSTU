@@ -51,7 +51,7 @@ public class ReebokCartTest extends TestBase {
         assertThat(expectedMessage, equalTo(reebokSearchResult.getErrorMessage()));
     }
 
-    @Test
+   @Test
     public void addTwoItemsToBagTest(){
         Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
         expectedItem.setAmount(2);
