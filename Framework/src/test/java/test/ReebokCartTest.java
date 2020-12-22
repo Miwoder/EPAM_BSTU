@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class ReebokCartTest extends TestBase {
 
-    @Test
+    //@Test
     public void addToBagTest(){
         Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
         Item item = new ReebokSearchResult()
@@ -28,7 +28,7 @@ public class ReebokCartTest extends TestBase {
         assertThat(item.getName(), equalTo(expectedItem.getName().toUpperCase()));
     }
 
-    @Test
+    //@Test
     public void addToWishListTest(){
         Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
         ReebokWishListPage wishListPage = new ReebokSearchResult()
@@ -39,7 +39,7 @@ public class ReebokCartTest extends TestBase {
         assertThat(wishListPage.getPrice(), equalTo(expectedItem.getCentPrice()));
     }
 
-    @Test
+    //@Test
     public void addToBagWithoutSizeTest(){
         String expectedMessage = "Please select your size";
         ReebokSearchResult reebokSearchResult = new ReebokSearchResult()
@@ -48,7 +48,7 @@ public class ReebokCartTest extends TestBase {
         assertThat(expectedMessage, equalTo(reebokSearchResult.getErrorMessage()));
     }
 
-    @Test
+    //@Test
     public void addTwoItemsToBagTest(){
         Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
         expectedItem.setAmount(2);
@@ -56,9 +56,6 @@ public class ReebokCartTest extends TestBase {
                 .openPage()
                 .setSize(expectedItem.getSize())
                 .addToBag()
-//                .closeBagDialog()
-//                .setSize(expectedItem.getSize())
-//                .addToBag()
                 .openBag()
                 .openSelectAmount()
                 .selectAmountTwo()

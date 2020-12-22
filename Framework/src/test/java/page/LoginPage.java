@@ -27,6 +27,11 @@ public class LoginPage extends AbstractPage{
     @FindBy(xpath = "//a[@data-auto-id=\"personalInformation\"]")
     private WebElement goToPersonalInformationButton;
 
+    @FindBy(xpath = "//button[@data-auto-id=\"go-to-registration-button\"]")
+    private WebElement goToRegistrationButton;
+
+    @FindBy(xpath = "//input[@name=\"firstName\"]")
+    private WebElement firstNameField;
     public LoginPage(){
         super(DriverSingleton.getInstance());
     }
@@ -52,9 +57,16 @@ public class LoginPage extends AbstractPage{
         submitButton.click();
         return this;
     }
+
     public AccountPage goToAccount() {
         waitUntilAjaxCompleted();
         waitUntilElementIsClickableAndClickAvoidModalWindow(goToPersonalInformationButton);
         return new AccountPage();
+    }
+
+    public RegistrationPage goToRegistration() {
+        waitUntilAjaxCompleted();
+        waitUntilElementIsClickableAndClickAvoidModalWindow(goToRegistrationButton);
+        return new RegistrationPage();
     }
 }

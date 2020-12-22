@@ -17,9 +17,6 @@ import static util.Resolver.resolveCost;
 import static util.Resolver.resolveTemplate;
 
 public class ReebokBagPage extends AbstractPage {
-    private static final String SIZE_TEMPLATE = "size_S_%s";
-    public static final String HOMEPAGE_URL = "https://www.reebok.com/us/cart";
-
     String itemNameTemplate = "//div[@data-auto-id=\"glass-cart-item-list\"]/div[1]/div[1]/div[%d]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/a/span";
     String itemCostTemplate = "//div[@data-auto-id=\"glass-cart-item-list\"]/div[1]/div[1]/div[%d]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]";
     String itemSizeTemplate = "//div[@data-auto-id=\"glass-cart-item-list\"]/div[1]/div[1]/div[%d]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/span[2]";

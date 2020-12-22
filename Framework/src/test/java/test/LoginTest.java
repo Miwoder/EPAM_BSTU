@@ -5,11 +5,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import page.AccountPage;
 import page.LoginPage;
+import page.RegistrationPage;
 import service.UserCreator;
 
 public class LoginTest extends TestBase {
 
-    @Test
+    //@Test
     public void loginTest() {
         User testUser= UserCreator.withCredentialsFromProperty();
         AccountPage accountPage = new LoginPage()
@@ -19,5 +20,21 @@ public class LoginTest extends TestBase {
                 .clickSubmitButton()
                 .goToAccount();
         Assert.assertTrue(accountPage.isLogIn());
+    }
+
+    @Test
+    public void incorrectInfoRegistrationTest() {
+        User testUser= UserCreator.withCredentialsFromProperty();
+        RegistrationPage registrationPage = new LoginPage()
+                .openPage()
+                .goToRegistration()
+                .inputUserFirstName(testUser.getName())
+                .inputUserLastName(testUser.getName())
+                .inputUserEmail(testUser.getEmail())
+                .inputUserPassword(testUser.getPassword())
+                .clickTermsConfirmButton()
+                .clickAgeConfirmButton()
+                .clickSubmitButton();
+        Assert.assertTrue(registrationPage.isErrorActive());
     }
 }
