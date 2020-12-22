@@ -1,18 +1,22 @@
 package test;
 
 import model.Item;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+import page.ReebokMenShoesPage;
 import page.ReebokSearchResult;
 import page.ReebokWishListPage;
 import service.ItemCreator;
 
+
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class ReebokCartTest extends TestBase {
 
-    @Test
+    //@Test
     public void addToBagTest(){
         Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
         Item item = new ReebokSearchResult()
@@ -27,7 +31,7 @@ public class ReebokCartTest extends TestBase {
         assertThat(item.getName(), equalTo(expectedItem.getName().toUpperCase()));
     }
 
-    @Test
+    //@Test
     public void addToWishListTest(){
         Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
         ReebokWishListPage wishListPage = new ReebokSearchResult()
@@ -38,7 +42,7 @@ public class ReebokCartTest extends TestBase {
         assertThat(wishListPage.getPrice(), equalTo(expectedItem.getCentPrice()));
     }
 
-    @Test
+    //@Test
     public void addToBagWithoutSizeTest(){
         String expectedMessage = "Please select your size";
         ReebokSearchResult reebokSearchResult = new ReebokSearchResult()
@@ -47,7 +51,7 @@ public class ReebokCartTest extends TestBase {
         assertThat(expectedMessage, equalTo(reebokSearchResult.getErrorMessage()));
     }
 
-    @Test
+    //@Test
     public void addTwoItemsToBagTest(){
         Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
         expectedItem.setAmount(2);
@@ -64,5 +68,15 @@ public class ReebokCartTest extends TestBase {
         assertThat(item.getAmount(), equalTo(expectedItem.getAmount()));
         assertThat(item.getSize(), equalTo(expectedItem.getSize()+" (us men)"));
         assertThat(item.getName(), equalTo(expectedItem.getName().toUpperCase()));
+    }
+
+    @Test
+    public void sortMenShoesHighToLowTest(){
+        List<Integer> itemsPriceList = new ReebokMenShoesPage()
+                .openPage()
+                .clickSortButton()
+                .clickHighToLowButton()
+                .getItemsPriceList();
+        Assert.assertTrue(itemsPriceList.get(0) >=itemsPriceList.get(1));
     }
 }

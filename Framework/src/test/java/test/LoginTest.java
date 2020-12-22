@@ -10,7 +10,7 @@ import service.UserCreator;
 
 public class LoginTest extends TestBase {
 
-    @Test
+    //@Test
     public void loginTest() {
         User testUser= UserCreator.withCredentialsFromProperty();
         AccountPage accountPage = new LoginPage()
@@ -22,7 +22,7 @@ public class LoginTest extends TestBase {
         Assert.assertTrue(accountPage.isLogIn());
     }
 
-    @Test
+    //@Test
     public void incorrectEmailRegistrationTest() {
         User testUser= UserCreator.withCredentialsFromProperty();
         RegistrationPage registrationPage = new LoginPage()
