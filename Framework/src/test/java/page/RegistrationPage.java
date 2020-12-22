@@ -30,6 +30,9 @@ public class RegistrationPage extends AbstractPage{
     @FindBy(xpath = "//button[@type=\"submit\"]")
     private WebElement submitButton;
 
+    @FindBy(xpath = "//button[@name=\"bluecoreCloseButton\"]")
+    WebElement closeAddButton;
+
     public RegistrationPage(){
         super(DriverSingleton.getInstance());
     }
@@ -43,6 +46,13 @@ public class RegistrationPage extends AbstractPage{
     public RegistrationPage inputUserFirstName(String firstName){
         waitUntilAjaxCompleted();
         firstNameField.sendKeys(firstName);
+        return this;
+    }
+
+    public RegistrationPage closeAddButton(){
+        waitUntilElementIsClickable(closeAddButton);
+        if(closeAddButton.isDisplayed())
+            closeAddButton.click();
         return this;
     }
 
