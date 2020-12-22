@@ -28,7 +28,6 @@ public class User {
         this.email = email;
         this.id = id;
         this.password=password;
-
     }
 
     public static User of(String name,String sex,String email, String id, String password){

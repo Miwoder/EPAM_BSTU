@@ -6,8 +6,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static util.Resolver.resolveTemplate;
-
 public class ReebokHomePage extends AbstractPage {
         private static final String HOMEPAGE_URL = "https://www.reebok.com/us";
 
@@ -28,14 +26,10 @@ public class ReebokHomePage extends AbstractPage {
             return this;
         }
 
-
         public ReebokSearchResult search(String request){
             waitUntilElementIsClickableAndClickAvoidModalWindow(searchButton);
             waitUntilVisibilityOf(searchField).sendKeys(request);
             searchField.sendKeys(Keys.ENTER);
-
             return new ReebokSearchResult();
         }
-
-
 }

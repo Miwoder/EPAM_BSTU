@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class AbstractPage {
-    protected final int WAIT_TIMEOUT_SECONDS = 30;//300
+    protected final int WAIT_TIMEOUT_SECONDS = 30;
 
     protected WebDriver driver;
 

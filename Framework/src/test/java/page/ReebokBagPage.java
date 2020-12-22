@@ -1,5 +1,6 @@
 package page;
 
+import driver.DriverSingleton;
 import model.Item;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -20,11 +21,28 @@ public class ReebokBagPage extends AbstractPage {
     public static final String HOMEPAGE_URL = "https://www.reebok.com/us/cart";
 
     String itemNameTemplate = "//div[@data-auto-id=\"glass-cart-item-list\"]/div[1]/div[1]/div[%d]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/a/span";
-    String numberOfItemTemplate = "//div[contains(@class,'product_title')]/h3/*[contains(@id, \"OrderItemDetailsf_div_2_\")]";
-    String itemDeleteTemplate = "//div[@data-auto-id=\"glass-cart-item-list\"]/div[1]/div[1]/div[%d]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/button";
     String itemCostTemplate = "//div[@data-auto-id=\"glass-cart-item-list\"]/div[1]/div[1]/div[%d]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]";
     String itemSizeTemplate = "//div[@data-auto-id=\"glass-cart-item-list\"]/div[1]/div[1]/div[%d]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/div[1]/span[2]";
     String countOfItemTemplate = "//div[@data-auto-id=\"glass-cart-item-list\"]/div[1]/div[1]/div[%d]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div[1]/select";
+
+    String numberOfItemTemplate = "//div[contains(@class,'product_title')]/h3/*[contains(@id, \"OrderItemDetailsf_div_2_\")]";
+    String itemDeleteTemplate = "//div[@data-auto-id=\"glass-cart-item-list\"]/div[1]/div[1]/div[%d]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/button";
+
+
+    @FindBy(xpath = "//span[@data-auto-id=\"glass-cart-summary-delivery-value\"]")
+    WebElement deliveryCostField;
+
+    @FindBy(xpath = "//input[@id=\"coupon-input\"]")
+    WebElement promoField;
+
+    @FindBy(xpath = "//button[@type=\"submit\"]")
+    WebElement submitButton;
+
+    @FindBy(xpath = "//div[@class=\"gl-callout__wrapper\"]")
+    WebElement errorPromoField;
+
+    @FindBy(xpath = "//button[@name=\"bluecoreCloseButton\"]")
+    WebElement closeAddButton;
 
     @FindBy(xpath = "//button[@data-auto-id=\"add-to-bag\"]")
     WebElement addToCartButton;
@@ -61,16 +79,41 @@ public class ReebokBagPage extends AbstractPage {
         return this;
     }
 
-    public ReebokBagPage(WebDriver driver){
-        super(driver);
-        PageFactory.initElements(driver, this);
+    public ReebokBagPage(){
+        super(DriverSingleton.getInstance());
+    }
+
+    public String getDeliveryCost(){
+        waitUntilAjaxCompleted();
+        return deliveryCostField.getText();
+    }
+
+    public String getPromoError(){
+        waitUntilAjaxCompleted();
+        waitUntilVisibilityOf(errorPromoField);
+        return errorPromoField.getText();
+    }
+
+    public ReebokBagPage inputPromo(String promo){
+        waitUntilAjaxCompleted();
+        promoField.sendKeys(promo);
+        return this;
+    }
+
+    public ReebokBagPage closeAddButton(){
+        waitUntilElementIsClickable(closeAddButton).click();
+        return this;
+    }
+
+    public ReebokBagPage clickApplyButton(){
+        waitUntilElementIsClickable(submitButton).click();
+        return this;
     }
 
     public ReebokSearchResult search(String request){
         waitUntilElementIsClickableAndClickAvoidModalWindow(searchButton);
         waitUntilVisibilityOf(searchField).sendKeys(request);
         searchField.sendKeys(Keys.ENTER);
-
         return new ReebokSearchResult();
     }
 
@@ -80,12 +123,10 @@ public class ReebokBagPage extends AbstractPage {
         WebElement itemSize = driver.findElements(By.xpath(resolveTemplate(itemSizeTemplate, number))).get(number - 1);
         WebElement itemCount = driver.findElement(By.xpath(resolveTemplate(countOfItemTemplate, number)));
         Select select = new Select(itemCount);
-
         String name = itemName.getText();
         String size = itemSize.getText().toLowerCase();
         int cost = Resolver.resolveCost(itemCost.getText());
         int amount = Resolver.resolveInt(select.getFirstSelectedOption().getText());
-
         return Item.of(name, size, cost, amount);
     }
 
@@ -95,12 +136,9 @@ public class ReebokBagPage extends AbstractPage {
                 .get(itemNumber - 1);
         Select select = new Select(itemCount);
         String startValue = itemCost.getText();
-
         select.selectByValue(Integer.toString(amountOfItem));
-
         waitUntilFieldIsChanged(itemCost, startValue);
         waitUntilAjaxCompleted();
-
         return this;
     }
 
@@ -109,33 +147,26 @@ public class ReebokBagPage extends AbstractPage {
         waitUntilVisibilityOf(promoCodeField).sendKeys(promoCode);
         WebElement itemCost = driver.findElements(By.xpath(resolveTemplate(itemCostTemplate, numberOfPromoItem)))
                 .get(numberOfPromoItem - 1);
-
         String startValue = itemCost.getText();
-
         promoCodeField.sendKeys(Keys.ENTER);
         waitUntilFieldIsChanged(itemCost, startValue);
-
         return this;
     }
 
     public ReebokBagPage removeItem(int number){
         WebElement removeButton = waitUntilPresenceOfElement(By.xpath(resolveTemplate(itemDeleteTemplate, number)));
-
         removeButton.click();
-
         return this;
     }
 
     public ReebokOrderPage proceedPurchase(){
         waitUntilElementIsClickable(proceedToSecureCheckout).click();
-
         return new ReebokOrderPage(driver);
     }
 
     public boolean isEmpty(){
         waitUntilAjaxCompleted();
         List<WebElement> items = driver.findElements(By.xpath(numberOfItemTemplate));
-
         return items.isEmpty();
     }
 

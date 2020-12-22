@@ -41,8 +41,8 @@ public class ReebokWishListPage extends AbstractPage {
         return nameField.getText();
     }
 
-    public String getPrice(){
-        return priceField.getText();
+    public int getPrice(){
+        return Integer.parseInt(priceField.getText());
     }
 
 }

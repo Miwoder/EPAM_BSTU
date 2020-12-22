@@ -3,17 +3,16 @@ package page;
 import driver.DriverSingleton;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import service.TestDataReader;
 
 import static util.Resolver.resolveTemplate;
 
 public class ReebokSearchResult extends AbstractPage {
     private static final String ITEM_LINK = TestDataReader.getTestData("test.data.first.link");
-    private static final String SIZE_TEMPLATE = "//div[@class=\"sizes___3Stmf\"]//span[contains(text(), \"%s\")]/ancestor::button";
+//    private static final String SIZE_TEMPLATE = "//div[@class=\"sizes___3Stmf\"]//span[contains(text(), \"%s\")]/ancestor::button";
+    private static final String SIZE_TEMPLATE = "//div[@class=\"sizes___3Stmf\"]//span[contains(text(), \"7.5\")]/ancestor::button";
     private static final String COUNT_TEMPLATE = ".dk_options_inner > li:nth-child(%s)";
 
     @FindBy(xpath = "//button[@data-auto-id=\"add-to-bag\"]")
@@ -28,8 +27,8 @@ public class ReebokSearchResult extends AbstractPage {
     @FindBy(xpath = "//a[@data-auto-id=\"cart-wishlist-icon-header\"]")
     WebElement goToWishListButton;
 
-    @FindBy(xpath = "//button[@data-auto-id=\\\"view-bag-desktop\\\"]")
-    WebElement openBagButton;
+    @FindBy(xpath = "//button[@class=\"gl-cta gl-cta--primary gl-cta--full-width gl-vspace\"]")
+    WebElement goToBagButton;
 
     @FindBy(xpath = "/html/body/div[2]/div/div/div/div/div[2]/div[2]/div[2]/section/div[1]/div[2]/button[1]")
     WebElement selectQuantity;
@@ -47,15 +46,15 @@ public class ReebokSearchResult extends AbstractPage {
     }
 
     public ReebokSearchResult setSize(String size){
-        waitUntilElementIsClickableAndClickAvoidModalWindow(By.id(resolveTemplate(SIZE_TEMPLATE,size)));
+        waitUntilElementIsClickableAndClickAvoidModalWindow(By.xpath(resolveTemplate(SIZE_TEMPLATE,size)));
         return this;
     }
 
-    public boolean isErrorMessageVisible() {
-        return errorField.isDisplayed();
+    public String getErrorMessage() {
+        return errorField.getText();
     }
 
-    public ReebokSearchResult addToCart() {
+    public ReebokSearchResult addToBag() {
         waitUntilElementIsClickableAndClickAvoidModalWindow(addToCartButton);
         return this;
     }
@@ -65,10 +64,10 @@ public class ReebokSearchResult extends AbstractPage {
         return this;
     }
 
-    public ReebokBagPage openCart(){
+    public ReebokBagPage openBag(){
         waitUntilAjaxCompleted();
-        waitUntilElementIsClickableAndClickAvoidModalWindow(openBagButton);
-        return new ReebokBagPage(driver);
+        waitUntilElementIsClickableAndClickAvoidModalWindow(goToBagButton);
+        return new ReebokBagPage();
     }
 
     public ReebokWishListPage openWishList(){

@@ -3,7 +3,6 @@ package test;
 import model.Item;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import page.ReebokHomePage;
 import page.ReebokSearchResult;
 import page.ReebokWishListPage;
 import service.ItemCreator;
@@ -15,15 +14,18 @@ import static org.hamcrest.Matchers.equalTo;
 public class ReebokCartTest extends TestBase {
 
     //@Test
-    public void addToCartTest(){
+    public void addToBagTest(){
         Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
         Item item = new ReebokSearchResult()
                 .openPage()
                 .setSize(expectedItem.getSize())
-                .addToCart()
-                .openCart()
+                .addToBag()
+                .openBag()
                 .getItem(1);
-        assertThat(item, equalTo(expectedItem));
+        assertThat(item.getCentPrice(), equalTo(expectedItem.getCentPrice()*100));
+        assertThat(item.getAmount(), equalTo(expectedItem.getAmount()));
+        assertThat(item.getSize(), equalTo(expectedItem.getSize()+" (us men)"));
+        assertThat(item.getName(), equalTo(expectedItem.getName().toUpperCase()));
     }
 
     //@Test
@@ -34,14 +36,15 @@ public class ReebokCartTest extends TestBase {
                 .addToWishList()
                 .openWishList();
         assertThat(wishListPage.getName(), equalTo(expectedItem.getName()));
-        //assertThat(wishListPage.getPrice(), equalTo(expectedItem.getCentPrice()));
+        assertThat(wishListPage.getPrice(), equalTo(expectedItem.getCentPrice()));
     }
 
     //@Test
-    public void addToCartWithoutSizeTest(){
+    public void addToBagWithoutSizeTest(){
+        String expectedMessage = "Please select your size";
         ReebokSearchResult reebokSearchResult = new ReebokSearchResult()
                 .openPage()
-                .addToCart();
-        Assert.assertTrue(reebokSearchResult.isErrorMessageVisible());
+                .addToBag();
+        assertThat(expectedMessage, equalTo(reebokSearchResult.getErrorMessage()));
     }
 }

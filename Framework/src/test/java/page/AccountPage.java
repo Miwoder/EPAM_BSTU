@@ -1,17 +1,12 @@
 package page;
 
 import driver.DriverSingleton;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import service.TestDataReader;
 
 public class AccountPage extends AbstractPage {
     private static final String PROFILE_LINK = TestDataReader.getTestData("test.data.user.profile.link");
-
 
     @FindBy(xpath = "//*[@id=\"app\"]/div/div/div/div/div[2]/div/div/div[1]/div/div[1]/div[2]/div")
     private WebElement nameField;

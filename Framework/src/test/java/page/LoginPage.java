@@ -15,8 +15,6 @@ import service.TestDataReader;
 public class LoginPage extends AbstractPage{
     private static final String LOGIN_LINK = TestDataReader.getTestData("test.data.user.login.link");
 
-    private final Logger logger = LogManager.getRootLogger();
-
     @FindBy(id = "login-email")
     private WebElement loginInput;
 
@@ -52,7 +50,6 @@ public class LoginPage extends AbstractPage{
 
     public LoginPage clickSubmitButton(){
         submitButton.click();
-        logger.info("Login performed");
         return this;
     }
     public AccountPage goToAccount() {
