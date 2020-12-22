@@ -88,7 +88,7 @@ public class RegistrationPage extends AbstractPage{
     }
 
     public boolean isErrorActive(){
-        //waitUntilAjaxCompleted();
+        waitUntilAjaxCompleted();
         waitUntilVisibilityOf(errorField);
         return errorField.isDisplayed();
     }
