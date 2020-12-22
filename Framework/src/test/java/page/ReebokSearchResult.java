@@ -33,6 +33,9 @@ public class ReebokSearchResult extends AbstractPage {
     @FindBy(xpath = "/html/body/div[2]/div/div/div/div/div[2]/div[2]/div[2]/section/div[1]/div[2]/button[1]")
     WebElement selectQuantity;
 
+    @FindBy(xpath = "//button[@class=\"gl-modal__close\"]")
+    WebElement closeBagDialogButton;
+
     @FindBy(xpath = "//div[@id='headerTopRight']/a[contains(@class,'searchButtonWrapper')]")
     private WebElement searchButton;
 
@@ -68,6 +71,12 @@ public class ReebokSearchResult extends AbstractPage {
         waitUntilAjaxCompleted();
         waitUntilElementIsClickableAndClickAvoidModalWindow(goToBagButton);
         return new ReebokBagPage();
+    }
+
+    public ReebokSearchResult closeBagDialog(){
+        waitUntilAjaxCompleted();
+        waitUntilElementIsClickableAndClickAvoidModalWindow(closeBagDialogButton);
+        return this;
     }
 
     public ReebokWishListPage openWishList(){

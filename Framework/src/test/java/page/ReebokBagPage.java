@@ -44,6 +44,12 @@ public class ReebokBagPage extends AbstractPage {
     @FindBy(xpath = "//button[@name=\"bluecoreCloseButton\"]")
     WebElement closeAddButton;
 
+    @FindBy(xpath = "//button[@data-di-id=\"di-id-7e15119f-c9bd4e3\"]")
+    WebElement openSelectAmountButton;
+
+    @FindBy(xpath = "//button[@value=\"2\"]")
+    WebElement selectAmountTwoButton;
+
     @FindBy(xpath = "//button[@data-auto-id=\"add-to-bag\"]")
     WebElement addToCartButton;
 
@@ -102,6 +108,16 @@ public class ReebokBagPage extends AbstractPage {
 
     public ReebokBagPage closeAddButton(){
         waitUntilElementIsClickable(closeAddButton).click();
+        return this;
+    }
+
+    public ReebokBagPage openSelectAmount(){
+        waitUntilElementIsClickable(openSelectAmountButton).click();
+        return this;
+    }
+
+    public ReebokBagPage selectAmountTwo(){
+        waitUntilElementIsClickable(selectAmountTwoButton).click();
         return this;
     }
 

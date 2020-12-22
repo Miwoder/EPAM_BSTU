@@ -39,18 +39,4 @@ public class Item {
     }
 
 
-
-    public static Item of(String name, String size, int cost){
-        return new Item(name, size, cost);
-    }
-    private Item(String name, String size, int cost){
-        checkNotNull(name);
-        checkNotNull(size);
-        checkArgument(centPrice >= 0);
-
-        this.name = name;
-        this.size = size;
-        this.centPrice = cost;
-    }
-
 }

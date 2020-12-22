@@ -47,4 +47,25 @@ public class ReebokCartTest extends TestBase {
                 .addToBag();
         assertThat(expectedMessage, equalTo(reebokSearchResult.getErrorMessage()));
     }
+
+    @Test
+    public void addTwoItemsToBagTest(){
+        Item expectedItem = ItemCreator.withCredentialsFromProperty("first");
+        expectedItem.setAmount(2);
+        Item item = new ReebokSearchResult()
+                .openPage()
+                .setSize(expectedItem.getSize())
+                .addToBag()
+//                .closeBagDialog()
+//                .setSize(expectedItem.getSize())
+//                .addToBag()
+                .openBag()
+                .openSelectAmount()
+                .selectAmountTwo()
+                .getItem(1);
+        assertThat(item.getCentPrice(), equalTo(expectedItem.getCentPrice()*200));
+        assertThat(item.getAmount(), equalTo(expectedItem.getAmount()));
+        assertThat(item.getSize(), equalTo(expectedItem.getSize()+" (us men)"));
+        assertThat(item.getName(), equalTo(expectedItem.getName().toUpperCase()));
+    }
 }
